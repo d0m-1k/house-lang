@@ -1,5 +1,6 @@
 import argparse
 import syntactic
+import sys
 
 parser = argparse.ArgumentParser(
     prog='HouseLang',
@@ -9,15 +10,18 @@ parser.add_argument("filename", nargs="?")
 
 args = parser.parse_args()
 
+version = "0.0.3"
+
 def start_while():
     lang = syntactic.HouseLang()
-    print("HouseLang 0.0.1")
+    print(f"HouseLang {version}")
     while True:
         try:
             command = input(">>> ")
             lang.eval(command)
-        except EOFError: exit(0)
+        except EOFError: sys.exit(0)
         except syntactic.SyntacticException as e: print(e)
+    sys.exit(1)
 
 if args.filename == None:
     start_while()
